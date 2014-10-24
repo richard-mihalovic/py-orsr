@@ -1,7 +1,19 @@
 py-orsr
 =======
 
-Parser Obchodného registra SR (orsr.sk) pre Python.
+Parser Obchodného registra SR (orsr.sk) pre Python. 
+
+Parser získava z orsr.sk tieto informácie:
+
+- názov spoločnosti
+- sídlo spoločnosti
+- IČO
+- deň zápisu
+- právna forma
+- predmet činností
+- spoločníci
+- štatutárny orgán
+- dozorná rada
 
 # Príklady použitia
 
