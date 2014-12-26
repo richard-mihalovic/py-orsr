@@ -4,7 +4,7 @@ import requests
 __version__ = '1.0'
 __author__ = 'Richard Mihalovic'
 __contact__ = 'richard@mihalovic.sk'
-__licence__ 'MIT'
+__licence__ = 'MIT'
 
 
 class OrSr:
