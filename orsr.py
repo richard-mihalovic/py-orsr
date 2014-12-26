@@ -213,12 +213,16 @@ class OrSrDetailParser(object):
         br = 0
         meno = ''
         adresa_l = []
+        process_record = False
         for e in elements:
             if e.tag == 'br':
                 br += 1
 
             if e.tag == 'span' and 'Vznik funkcie' in e.text:
-                pass
+                process_record = True
+            elif process_record and br == 1:
+                br = 0
+                process_record = False
             elif e.tag == 'span' and br == 0:
                 meno += e.text.strip() + ' '
             elif e.tag == 'span' and br > 0:
@@ -227,7 +231,7 @@ class OrSrDetailParser(object):
                     adresa_l.append(text)
 
             adresa = ''
-            if br == 4:
+            if process_record:
                 if len(adresa_l) == 3:
                     adresa = adresa_l[0] + ' ' + adresa_l[1] + ', ' + adresa_l[2]
                 elif len(adresa_l) == 4:
