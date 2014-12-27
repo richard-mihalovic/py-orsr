@@ -42,6 +42,7 @@ class OrSr:
         else:
             return None
 
+
 class OrSrDetailParser(object):
     def __init__(self):
         self.__detail = {
@@ -142,18 +143,21 @@ class OrSrDetailParser(object):
     def __nacitaj_spolocnikov(self, table):  # spolocnici
         spolocnici = []
 
-        elements = table.xpath('tr/td[2]/table/tr/td[1]//span | tr/td[2]/table/tr/td[1]//br')
-        br = 0
-        meno = ''
-        adresa_l = []
-        for e in elements:
-            if e.tag == 'br':
-                br += 1
+        tds = table.xpath('tr/td[2]/table/tr/td[1]')
+        for td in tds:
+            elements = td.xpath('child::span | child::br | child::a/span')
 
-            if e.tag == 'span' and br == 0:
-                meno += e.text.strip() + ' '
-            elif e.tag == 'span' and br > 0:
-                adresa_l.append(e.text.strip())
+            br = 0
+            meno = ''
+            adresa_l = []
+            for e in elements:
+                if e.tag == 'br':
+                    br += 1
+
+                if 'span' and br == 0:
+                    meno += e.text.strip() + ' '
+                elif e.tag == 'span' and br > 0:
+                    adresa_l.append(e.text.strip())
 
             adresa = ''
             if br == 3:
@@ -163,10 +167,9 @@ class OrSrDetailParser(object):
                     adresa = adresa_l[0] + ' ' + adresa_l[1] + ', ' + ', '.join(adresa_l[2:])
 
                 spolocnici.append(meno + '( ' + adresa + ' )')
-
-                br = 0
-                meno = ''
-                adresa_l = []
+            elif br > 3:
+                adresa = adresa_l[0] + ' ' + adresa_l[1] + ', ' + ', '.join(adresa_l[2:])
+                spolocnici.append(meno + '( ' + adresa + ' )')
 
         self.__detail['spolocnici'] = spolocnici
 
