@@ -22,7 +22,7 @@ class OrSr:
 
         root = etree.fromstring(html, etree.HTMLParser())
         elements = root.xpath('//div[@class="bmk"][1]/a/@href')
-        if len(elements) == 2:
+        if len(elements) > 1:
             detail_url = 'http://orsr.sk/' + elements[0]
             detail_html = self.__load_html(detail_url)
             return OrSrDetailParser().parse(detail_html)
@@ -35,7 +35,7 @@ class OrSr:
 
         root = etree.fromstring(html, etree.HTMLParser())
         elements = root.xpath('//div[@class="bmk"][1]/a/@href')
-        if len(elements) == 2:
+        if len(elements) > 1:
             detail_url = 'http://orsr.sk/' + elements[0]
             detail_html = self.__load_html(detail_url)
             return OrSrDetailParser().parse(detail_html)
